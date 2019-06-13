@@ -5,7 +5,7 @@ import numpy as np
 
 __all__ = ['create_network','source_nodes','sink_nodes','plot_network']
 
-def PieShareDistribution(M, N, remainder=True):
+def PieShareDistribution(M, N, remainder=True, randomnumbers=None):
     """
         This function produces M sets of N random numbers that sum up to C.
         The N random numbers are distributed identically with the PDF f(x) = N * (1-x)^(N-1).
@@ -24,6 +24,11 @@ def PieShareDistribution(M, N, remainder=True):
                                              r_N = C-r_1-r_2-...-r_(N-1)
                                       If True, remainder is calculated and returned.
                                       Default: True
+        randomnumbers   1D/2D array   Sampled uniform distributed random numbers that will be 
+                                      used to derive the weights
+                                      M x (N-1) random numbers need to be provided to retrieve 
+                                      M x N weights
+                                      Default: None
 
         Output          Format        Description
         -----           -----         -----------
@@ -61,9 +66,9 @@ def PieShareDistribution(M, N, remainder=True):
         >>> print('random set #1: '+str(rand[0,:]))
         random set #1: [ 0.48492752  0.06133198  0.04384398  0.08384854  0.32604797]
         >>> print('random set #2: '+str(rand[1,:]))
-        random set #2: [ 0.20252398  0.53541574  0.1077286   0.11558002  0.03875166]
+        random set #2: [ 0.18915093  0.21120041  0.4866893   0.07378246  0.03917689]
         >>> print('random set #3: '+str(rand[2,:]))
-        random set #3: [ 0.29128285  0.46900793  0.00100749  0.02540846  0.21329326]
+        random set #3: [ 0.29212136  0.21071729  0.24744715  0.24005194  0.00966226]
         >>> print('sum: '+str(np.sum(rand[:,:],axis=1)))
         sum: [ 1.  1.  1.]
 
@@ -76,9 +81,17 @@ def PieShareDistribution(M, N, remainder=True):
         >>> print('random set #1: '+str(rand[0,:]))
         random set #1: [ 0.48492752  0.06133198  0.04384398  0.08384854]
         >>> print('random set #2: '+str(rand[1,:]))
-        random set #2: [ 0.20252398  0.53541574  0.1077286   0.11558002]
+        random set #2: [ 0.18915093  0.21120041  0.4866893   0.07378246]
         >>> print('random set #3: '+str(rand[2,:]))
-        random set #3: [ 0.29128285  0.46900793  0.00100749  0.02540846]
+        random set #3: [ 0.29212136  0.21071729  0.24744715  0.24005194]
+
+        Provide random numbers
+
+        >>> np.random.seed(seed=12345)
+        >>> M = 3    # number of random number sets
+        >>> N = 5    # number of random numbers that need to sum up to 1.0
+        >>> rr = np.random.rand(M,N-1)
+        >>> rand = PieShareDistribution(M, N, remainder=True, randomnumbers=rr)
         
         License
         -------
@@ -106,8 +119,26 @@ def PieShareDistribution(M, N, remainder=True):
         Written,  Juliane Mai, June 2019
     """
 
-    # sample uniform random numbers ~ U[0,1]
-    rr = np.random.rand(M,N)
+    if randomnumbers is None:
+        # sample uniform random numbers ~ U[0,1]
+        rr = np.random.rand(M,N-1)
+
+    else:
+        if len(np.shape(randomnumbers)) == 1:
+            if np.shape(randomnumbers)[0] != N-1:
+                raise ValueError("PieShareDistribution: N-1 random numbers need to be provided" )
+            else:
+                randomnumbers = randomnumbers[np.newaxis,:]
+        elif len(np.shape(randomnumbers)) == 2:
+            if ( np.shape(randomnumbers)[0] != M or np.shape(randomnumbers)[1] != N-1):
+                raise ValueError("PieShareDistribution: random numbers provided need to have M rows and (N-1) columns" )
+        else:
+            raise ValueError("PieShareDistribution: random numbers provided need to be either 1D or 2D arrays" )
+
+        if (np.any(randomnumbers > 1.0) or np.any(randomnumbers < 0.0)):
+            raise ValueError("PieShareDistribution: random numbers provided need to be uniform distributed between 0 and 1")
+
+        rr = randomnumbers
 
     # initialize matrix of weights
     ww = np.zeros((M,N))
