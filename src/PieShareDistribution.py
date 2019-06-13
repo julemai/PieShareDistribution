@@ -106,6 +106,7 @@ def PieShareDistribution(M, N, remainder=True):
         Written,  Juliane Mai, June 2019
     """
 
+    # sample uniform random numbers ~ U[0,1]
     rr = np.random.rand(M,N)
 
     # initialize matrix of weights
