@@ -5,7 +5,7 @@ import numpy as np
 
 __all__ = ['create_network','source_nodes','sink_nodes','plot_network']
 
-def PieShareDistribution(M, N, C, remainder=True):
+def PieShareDistribution(M, N, remainder=True):
     """
         This function produces M sets of N random numbers that sum up to C.
         The N random numbers are distributed identically with the PDF f(x) = N * (1-x)^(N-1).
@@ -19,7 +19,6 @@ def PieShareDistribution(M, N, C, remainder=True):
         -----           -----         -----------
         M               integer       Number of random number sets. Each set is on length N.
         N               integer       Number of random numbers that sum up to C.                                         
-        C               float         The value the N random numbers of one set sum up to.
         remainder       bool          If False, only (N-1) random numbers are returned.
                                       The one that is not returned is the remainder:
                                              r_N = C-r_1-r_2-...-r_(N-1)
@@ -52,19 +51,34 @@ def PieShareDistribution(M, N, C, remainder=True):
 
         Examples
         --------
+
+        Without remainder
+
         >>> np.random.seed(seed=12345)
         >>> M = 3    # number of random number sets
-        >>> N = 5    # number of random numbers that need to sum up to C
-        >>> C = 3.0  # value of sum of N random numbers of one set
-        >>> rand = PieShareDistribution(M, N, C, remainder=True)
+        >>> N = 5    # number of random numbers that need to sum up to 1.0
+        >>> rand = PieShareDistribution(M, N, remainder=True)
         >>> print('random set #1: '+str(rand[0,:]))
-        random set #1: [ 1.45478257  0.18399595  0.13153194  0.25154563  0.9781439 ]
+        random set #1: [ 0.48492752  0.06133198  0.04384398  0.08384854  0.32604797]
         >>> print('random set #2: '+str(rand[1,:]))
-        random set #2: [ 0.60757194  1.60624723  0.32318579  0.34674005  0.11625498]
+        random set #2: [ 0.20252398  0.53541574  0.1077286   0.11558002  0.03875166]
         >>> print('random set #3: '+str(rand[2,:]))
-        random set #3: [ 0.87384856  1.40702379  0.00302248  0.07622537  0.63987979]
+        random set #3: [ 0.29128285  0.46900793  0.00100749  0.02540846  0.21329326]
         >>> print('sum: '+str(np.sum(rand[:,:],axis=1)))
-        sum: [ 3.  3.  3.]
+        sum: [ 1.  1.  1.]
+
+        No remainder
+
+        >>> np.random.seed(seed=12345)
+        >>> M = 3    # number of random number sets
+        >>> N = 5    # number of random numbers that need to sum up to 1.0
+        >>> rand = PieShareDistribution(M, N, remainder=False)
+        >>> print('random set #1: '+str(rand[0,:]))
+        random set #1: [ 0.48492752  0.06133198  0.04384398  0.08384854]
+        >>> print('random set #2: '+str(rand[1,:]))
+        random set #2: [ 0.20252398  0.53541574  0.1077286   0.11558002]
+        >>> print('random set #3: '+str(rand[2,:]))
+        random set #3: [ 0.29128285  0.46900793  0.00100749  0.02540846]
         
         License
         -------
@@ -102,12 +116,13 @@ def PieShareDistribution(M, N, C, remainder=True):
         ss = np.sum(ww[:,0:ii],axis=1)
         ww[:,ii] = ( 1. - ss ) * ( 1. - (1. - rr[:,ii])**(1./(N-ii-1)) )
 
-    # derive remainder
-    ss = np.sum(ww[:,0:N-1],axis=1)
-    ww[:,N-1] = ( 1. - ss )
-
-    # scale everything such that it sums up to C
-    ww = ww * C
+    if remainder:
+        # derive remainder
+        ss = np.sum(ww[:,0:N-1],axis=1)
+        ww[:,N-1] = ( 1. - ss )
+    else:
+        # remove last column because remainder is not returned
+        ww = ww[:,0:N-1]
 
     # just return a 1D array
     if M == 1:
@@ -123,7 +138,6 @@ if __name__ == '__main__':
 
     M = 3000
     N = 10
-    C = 1.0
 
-    weights = PieShareDistribution(M,N,C)
+    weights = PieShareDistribution(M,N)
 
