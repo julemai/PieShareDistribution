@@ -1,5 +1,3 @@
-# PieShareDistribution
-
 If you want to share a pie with N people and everybody should get a random sizes piece while making sure that nobody gets preffered (on average), you need the:
 
 **The Pie Share Distribution**<br>
