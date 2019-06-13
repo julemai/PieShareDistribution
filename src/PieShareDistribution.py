@@ -3,7 +3,7 @@ from __future__ import print_function
 
 import numpy as np
 
-__all__ = ['create_network','source_nodes','sink_nodes','plot_network']
+__all__ = ['PieShareDistribution']
 
 def PieShareDistribution(M, N, remainder=True, randomnumbers=None):
     """
