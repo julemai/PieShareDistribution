@@ -168,8 +168,8 @@ if __name__ == '__main__':
     import doctest
     doctest.testmod(optionflags=doctest.NORMALIZE_WHITESPACE)
 
-    M = 3000
-    N = 10
+    # M = 3000
+    # N = 10
 
-    weights = PieShareDistribution(M,N)
+    # weights = PieShareDistribution(M,N)
 
