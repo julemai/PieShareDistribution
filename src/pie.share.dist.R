@@ -28,7 +28,7 @@ pie.share.dist<-function(N,M=1,randomnumbers=NA)
   if (is.na(randomnumbers)){
     rr<-runif((N-1)*M,0,1);
   } else {
-    if (len(randomnumbers != M*N-1)){
+    if (prod(dim(randomnumbers)) != M*(N-1)){
       print("pie.share.dist: invalid number of terms in randomnumbers argument")
       return (NA)
     }
