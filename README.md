@@ -1,8 +1,19 @@
-If you want to share a pie with N people and everybody should get a random sizes piece while making sure that nobody gets preffered (on average), you need the:
+# The Pie sharing problem: Unbiased sampling of N+1 summative weights.
+*by J. Mai<sup> 1</sup> and  J. R. Craig<sup> 1</sup>*<br><br>
+*<sup> 1</sup> Dept. Civil and Environmental Engineering, University of Waterloo, Waterloo, ON, Canada.*<br>
 
-**The Pie Share Distribution**<br>
-_A method to transform uniform random numbers such that the transformed values sum up to 1 and are identically distributed._
 
-Please refer to the [**Wiki**](https://github.com/julemai/GRIP-E/wiki) for more details and documentation.
+## Abstract
+A simple algorithm is provided for randomly sampling a set of N+1 weights such that their sum is constrained to be equal to one, analogous to randomly subdividing a pie into N+1 slices where the probability distribution of slice volumes are identically distributed. The cumulative density and probability density functions of the random weights are provided. Please refer to the [**Wiki**](https://github.com/julemai/GRIP-E/wiki) for more details and documentation.
 
-This project is funded under the [IMPC](https://gwf.usask.ca/impc/) project of [Global Water Futures](https://gwf.usask.ca) program.
+## Usage
+Please refer to the [**Wiki**](https://github.com/julemai/GRIP-E/wiki) for details on the usage in [Python](https://github.com/julemai/PieShareDistribution/wiki/Python) and [R](https://github.com/julemai/PieShareDistribution/wiki/R).
+
+
+## Citation
+
+### Code Publication
+J. Mai,  J. Craig (2020) .<br>
+The PieShareDistribution: Unbiased sampling of N+1 summative weights. <br>
+*Zenodo*<br>
+https://doi.org/10.5281/zenodo.4300332
