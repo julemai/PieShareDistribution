@@ -21,4 +21,4 @@ The Pie sharing problem: Unbiased sampling of N+1 summative weights. <br>
 J. Mai and  J. Craig (2020).<br>
 The PieShareDistribution: Unbiased sampling of N+1 summative weights. <br>
 *Zenodo*<br>
-https://doi.org/10.5281/zenodo.4300332
+[![DOI](https://github.com/julemai/PieShareDistribution/wiki/images/zenodo.4300332.svg)](https://doi.org/10.5281/zenodo.4300332)
