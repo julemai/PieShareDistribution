@@ -13,13 +13,13 @@ Please refer to the [Wiki](https://github.com/julemai/PieShareDistribution/wiki)
 ## Citation
 
 ### Journal publication
-J. Mai, J. R. Craig, and B. A. Tolson (2021).<br>
+J. Mai, J. R. Craig, and B. A. Tolson (2022).<br>
 The Pie sharing problem: Unbiased sampling of N+1 summative weights. <br>
-*Environmental Modelling and Software*, , ??(?), 105282. Accepted Dec 7, 2021. <br>
+*Environmental Modelling and Software*, , 148, 105282. Accepted Dec 7, 2021. <br>
 https://doi.org/10.1016/j.envsoft.2021.105282 <br>
 
 ### Code publication
-J. Mai and  J. Craig (2020).<br>
+J. Mai, J. R. Craig, and B. A. Tolson (2020).<br>
 The PieShareDistribution: Unbiased sampling of N+1 summative weights. <br>
 *Zenodo*<br>
 [![DOI](https://github.com/julemai/PieShareDistribution/wiki/images/zenodo.4300332.svg)](https://doi.org/10.5281/zenodo.4300332)
